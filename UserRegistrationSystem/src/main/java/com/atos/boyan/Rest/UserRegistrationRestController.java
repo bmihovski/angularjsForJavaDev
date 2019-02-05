@@ -2,6 +2,8 @@ package com.atos.boyan.Rest;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.atos.boyan.Exception.CustomErrorType;
 import com.atos.boyan.dto.UsersDTO;
 import com.atos.boyan.repository.UserJpaRepository;
 
@@ -36,11 +39,19 @@ public class UserRegistrationRestController {
 	@GetMapping("/")
 	public ResponseEntity<List<UsersDTO>> listAllUsers() {
 		List<UsersDTO> users = userJpaRepository.findAll();
+		if (users.isEmpty()) {
+			return new ResponseEntity<List<UsersDTO>>(HttpStatus.NO_CONTENT);
+		};
 		return new ResponseEntity<List<UsersDTO>>(users, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<UsersDTO> createUser(@RequestBody final UsersDTO user) {
+	public ResponseEntity<UsersDTO> createUser(@Valid @RequestBody final UsersDTO user) {
+		if (userJpaRepository.findByName(user.getName()) != null) {
+			return new ResponseEntity<UsersDTO>(
+					new CustomErrorType("Unable to create user. User with name "
+							+ user + " already exist." ), HttpStatus.FOUND);
+		};
 		userJpaRepository.save(user);
 		return new ResponseEntity<UsersDTO>(user, HttpStatus.CREATED);
 	}
@@ -48,6 +59,11 @@ public class UserRegistrationRestController {
 	@GetMapping("/{id}")
 	public ResponseEntity<UsersDTO> getUserById(@PathVariable("id") final Long id) {
 		UsersDTO user = userJpaRepository.findById(id);
+		if (user == null) {
+			return new ResponseEntity<UsersDTO>(
+					new CustomErrorType("User with id "
+					+ id + " not found"), HttpStatus.NOT_FOUND);
+		}
 		return new ResponseEntity<UsersDTO>(user, HttpStatus.OK);
 	}
 
@@ -56,6 +72,12 @@ public class UserRegistrationRestController {
 			@RequestBody UsersDTO user) {
 		// fetch based on id and set it to currentUser object of type UsersDTO
 		UsersDTO currentUser = userJpaRepository.findById(id);
+		// check for wrong user id
+		if (currentUser == null) {
+			return new ResponseEntity<UsersDTO>(
+					new CustomErrorType("Unable to update! The user with id " + id
+							+ " not exist."), HttpStatus.NOT_FOUND);
+		}
 
 		// update currentUser object data with user object data
 		currentUser.setName(user.getName());
@@ -72,6 +94,12 @@ public class UserRegistrationRestController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<UsersDTO> deleteUser(@PathVariable("id") final Long id) {
+		UsersDTO user = userJpaRepository.findById(id);
+		if (user == null) {
+			return new ResponseEntity<UsersDTO>(
+					new CustomErrorType("Unable to delete! The user with id " + id
+							+ " not exit."), HttpStatus.NOT_FOUND);
+		};
 		userJpaRepository.delete(id);
 		return new ResponseEntity<UsersDTO>(HttpStatus.NO_CONTENT);
 	}
