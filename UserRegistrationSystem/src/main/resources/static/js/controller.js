@@ -8,10 +8,10 @@ app.controller('registerUserController', ['$scope', '$http', '$location', '$rout
 		.then(function(response) {
 			$location.path('/list-all-users');
 			$route.reload();
-		}),
+		},
 		function(errResponse) {
 			$scope.errorMessage = errResponse.data.errorMessage;
-		};
+		});
 	};
 	$scope.resetForm = function() {
 		$scope.user = null;
@@ -64,7 +64,7 @@ app.controller('usersDetailsController', ['$scope', '$http', '$location', '$rout
 			},
 			function(errResponse) {
 				$scope.errorMessage = 'Error while updating User - Error Message: ' +
-					errResponse.data.errorMessage;
+					errResponse.data.error_detail;
 			});
 		};
 		$scope.resetForm = function() {

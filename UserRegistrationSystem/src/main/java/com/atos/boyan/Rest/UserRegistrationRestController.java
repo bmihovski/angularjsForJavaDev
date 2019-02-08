@@ -50,7 +50,7 @@ public class UserRegistrationRestController {
 		if (userJpaRepository.findByName(user.getName()) != null) {
 			return new ResponseEntity<UsersDTO>(
 					new CustomErrorType("Unable to create user. User with name "
-							+ user + " already exist." ), HttpStatus.FOUND);
+							+ user.getName() + " already exist." ), HttpStatus.FOUND);
 		};
 		userJpaRepository.save(user);
 		return new ResponseEntity<UsersDTO>(user, HttpStatus.CREATED);
