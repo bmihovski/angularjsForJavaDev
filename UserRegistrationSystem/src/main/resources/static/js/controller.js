@@ -1,45 +1,25 @@
-app.controller('registerUserController', ['$scope', '$http', '$location', '$route', function($scope, $http, $location, $route) {
-	$scope.submitUserForm = function() {
-		$http({
-			method: 'POST',
-			url: 'http://localhost:8080/api/user/',
-			data: $scope.user,
-		})
-		.then(function(response) {
-			$location.path('/list-all-users');
-			$route.reload();
-		},
-		function(errResponse) {
-			$scope.errorMessage = errResponse.data.errorMessage;
-		});
-	};
-	$scope.resetForm = function() {
-		$scope.user = null;
-	};
 
-}]);
-
-app.controller('listUserController', ['$scope', '$http', '$location', '$route', function($scope, $http, $location, $route) {
-	$http({
-		method: 'GET',
-		url: 'http://localhost:8080/api/user/'
-	}).then(function(response) {
-		$scope.users = response.data;
-	});
-	$scope.editUser = function(userId) {
-		$location.path("/update-user/" + userId);
-	};
-	$scope.deleteUser = function(userId) {
-		$http({
-			method: 'DELETE',
-			url: 'http://localhost:8080/api/user/' + userId
-		}).then(function(response) {
-			$location.path('/list-all-users');
-			$route.reload();
-		});
-	};
-
-}]);
+//app.controller('listUserController', ['$scope', '$http', '$location', '$route', function($scope, $http, $location, $route) {
+//	$http({
+//		method: 'GET',
+//		url: 'http://localhost:8080/api/user/'
+//	}).then(function(response) {
+//		$scope.users = response.data;
+//	});
+//	$scope.editUser = function(userId) {
+//		$location.path("/update-user/" + userId);
+//	};
+//	$scope.deleteUser = function(userId) {
+//		$http({
+//			method: 'DELETE',
+//			url: 'http://localhost:8080/api/user/' + userId
+//		}).then(function(response) {
+//			$location.path('/list-all-users');
+//			$route.reload();
+//		});
+//	};
+//
+//}]);
 
 app.controller('usersDetailsController', ['$scope', '$http', '$location', '$route', '$routeParams', function($scope, $http, $location,
 		$route, $routeParams) {
