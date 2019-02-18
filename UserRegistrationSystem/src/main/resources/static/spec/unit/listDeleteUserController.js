@@ -5,7 +5,7 @@ describe('Given a controller to list created users', function() {
 	 var location;
 	 var route;
 	 var listDeleteUserFactory;
-	 var data;
+     var listedUsers = {data: [{id: 1}, {id: 2}]};
 
 	beforeEach(function() {
 		module('userregistrationsystem');
@@ -32,7 +32,6 @@ describe('Given a controller to list created users', function() {
 
 	});
 	it('should resolve the promise and return the users', function() {
-		var listedUsers = {data: [{id: 1}, {id: 2}]};
 	    // Setup the data we wish to return for the .then function in the controller
 		listDeleteUserFactory.listUsers();
 		expect(listDeleteUserFactory.listUsers).toHaveBeenCalled();
@@ -43,6 +42,8 @@ describe('Given a controller to list created users', function() {
 	    scope.$apply();
 	    // Since we called apply, not we can perform our assertions
 	    expect(scope.users).not.toBe(undefined);
+	    expect(location.path).not.toHaveBeenCalledWith('/list-all-users');
+	    expect(route.reload).not.toHaveBeenCalled();
 
 	});
 
@@ -50,7 +51,7 @@ describe('Given a controller to list created users', function() {
 		scope.deleteUser(1);
 		expect(listDeleteUserFactory.deleteUser).toHaveBeenCalled();
 
-		deferred.resolve();
+		deferred.resolve(listedUsers);
 		scope.$apply();
 
 	    expect(location.path).toHaveBeenCalledWith('/list-all-users');

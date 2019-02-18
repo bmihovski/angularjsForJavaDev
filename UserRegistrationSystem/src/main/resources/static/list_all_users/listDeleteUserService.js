@@ -1,29 +1,31 @@
 app.factory('listDeleteUserFactory', ['$http', '$q', 'API_URL', function($http, $q, API_URL) {
-		var deferred = $q.defer();
+
 		var listUsersRemote = function() {
+			var listDeferred = $q.defer();
 			$http({
 				method: 'GET',
 				url: API_URL
 			})
 			.then(function(response) {
-				deferred.resolve(response);
+				listDeferred.resolve(response);
 			});
 
-			return deferred.promise;
+			return listDeferred.promise;
 		};
 		var deleteUserRemote = function(userId) {
+			var deleteDeferred = $q.defer();
 			$http({
 				method: 'DELETE',
 				url: API_URL + userId
 			})
 			.then(function() {
-				deferred.resolve();
+				deleteDeferred.resolve();
 			})
 			.catch(function(response) {
-				deferred.reject(response);
+				deleteDeferred.reject(response);
 			});
 
-			return deferred.promise;
+			return deleteDeferred.promise;
 		};
 	return {
 		listUsers: listUsersRemote,
