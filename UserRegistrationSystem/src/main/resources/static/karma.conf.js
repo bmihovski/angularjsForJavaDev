@@ -24,6 +24,7 @@ module.exports = function(config) {
 				'./userregistration/userRegistrationController.js',
 				'./list_all_users/listDeleteUserService.js',
 				'./list_all_users/listDeleteUserController.js',
+				'./user_update/userUpdateService.js',
 				'./spec/unit/**/*.js' ],
 
 		// list of files / patterns to exclude

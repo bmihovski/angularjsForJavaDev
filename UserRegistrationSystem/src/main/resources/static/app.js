@@ -10,7 +10,7 @@ app.config(['$routeProvider', function($routeProvider) {
 		controller: 'RegisterUserController'
 	})
 	.when('/update-user/:id', {
-		templateUrl: '/template/userupdation.html',
+		templateUrl: '/user_update/userupdation.html',
 		controller: 'usersDetailsController'
 	})
 	.otherwise({
