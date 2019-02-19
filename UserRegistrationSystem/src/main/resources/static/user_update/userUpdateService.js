@@ -11,7 +11,21 @@ app.factory('getUserAndEdit', ['$http', 'API_URL', '$q', function($http, API_URL
 		return listUserDeferred.promise;
 	};
 
-	var editUserDetails = function() {};
+	var editUserDetails = function(userData) {
+		var editUserDeferred = $q.defer();
+		$http({
+			method: 'POST',
+			url: API_URL,
+			data: userData
+		})
+		.then(function() {
+			editUserDeferred.resolve();
+		})
+		.catch(function(response) {
+			editUserDeferred.reject(response);
+		});
+		return editUserDeferred.promise;
+	};
 	return {
 		getUser: getUserDetails,
 		editUser: editUserDetails

@@ -1,5 +1,14 @@
 describe('Given user which will be edited', function() {
-	var route, httpBackend, getUserAndEdit, API_URL, location;
+	var route, httpBackend, getUserAndEdit, API_URL, location, errorMessage;
+	var user = [
+		{
+		id: 1,
+        name: "Boyan",
+        address: "Sofia, Mladost",
+        email: "mag@gmail.com",
+        errorMessage: null
+		}
+	];
 	beforeEach(function() {
 		module('userregistrationsystem');
 		inject(function ($controller, _$route_, _getUserAndEdit_, _API_URL_, _$location_, _$httpBackend_) {
@@ -13,15 +22,6 @@ describe('Given user which will be edited', function() {
 
 	});
 	it('When user is selected to edit, then user details are displayed', function() {
-		var user = [
-			{
-			id: 1,
-	        name: "Boyan",
-	        address: "Sofia, Mladost",
-	        email: "mag@gmail.com",
-	        errorMessage: null
-			}
-		];
 		httpBackend.when('GET', API_URL + user[0].id).respond(200, user);
 		httpBackend.expectGET(API_URL + user[0].id);
 		getUserAndEdit.getUser(user[0].id).then(function(d) {
@@ -29,4 +29,28 @@ describe('Given user which will be edited', function() {
 		});
 		httpBackend.flush();
 	});
+
+	it('When user details are changed, then the data is sent to server', function() {
+		httpBackend.when('POST', API_URL, user)
+		.respond(200, true);
+		httpBackend.expectPOST(API_URL, user);
+		getUserAndEdit.editUser(user).then(function(data) {
+			expect(data).toBe(undefined);
+		});
+		httpBackend.flush();
+	});
+	it('When user details are wrong, then a message from backend is return', function() {
+		errorMessage = {data: {error_detail: "ERROR"}};
+		httpBackend.when('POST', API_URL, user)
+		.respond(400, errorMessage);
+		httpBackend.expectPOST(API_URL, user);
+		getUserAndEdit.editUser(user).then(function(data) {
+			expect(data).toBe(undefined);
+		})
+		.catch(function(data) {
+			expect(data.error_detail).toBe("ERROR");
+		});
+		httpBackend.flush();
+	})
+
 });
