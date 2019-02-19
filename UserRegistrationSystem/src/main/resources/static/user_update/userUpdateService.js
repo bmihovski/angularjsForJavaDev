@@ -1,4 +1,4 @@
-app.factory('getUserAndEdit', ['$http', 'API_URL', '$q', function($http, API_URL, $q) {
+app.factory('getUserAndEditFactory', ['$http', 'API_URL', '$q', function($http, API_URL, $q) {
 	var getUserDetails = function(userId) {
 		var listUserDeferred = $q.defer();
 		$http({
@@ -14,8 +14,8 @@ app.factory('getUserAndEdit', ['$http', 'API_URL', '$q', function($http, API_URL
 	var editUserDetails = function(userData) {
 		var editUserDeferred = $q.defer();
 		$http({
-			method: 'POST',
-			url: API_URL,
+			method: 'PUT',
+			url: API_URL + userData.id,
 			data: userData
 		})
 		.then(function() {

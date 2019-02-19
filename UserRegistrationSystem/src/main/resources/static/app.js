@@ -11,7 +11,7 @@ app.config(['$routeProvider', function($routeProvider) {
 	})
 	.when('/update-user/:id', {
 		templateUrl: '/user_update/userupdation.html',
-		controller: 'usersDetailsController'
+		controller: 'UsersDetailsController'
 	})
 	.otherwise({
 		redirectTo: '/home',
