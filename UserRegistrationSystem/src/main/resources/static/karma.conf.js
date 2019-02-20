@@ -20,12 +20,13 @@ module.exports = function(config) {
 		    	'./node_modules/angular-resource/angular-resource.js',
 		    	'app.js',
 		    	'./components/userRegConst.js',
-				'./userregistration/userRegistrationService.js',
-				'./userregistration/userRegistrationController.js',
+				'./user_registration/userRegistrationService.js',
+				'./user_registration/userRegistrationController.js',
 				'./list_all_users/listDeleteUserService.js',
 				'./list_all_users/listDeleteUserController.js',
 				'./user_update/userUpdateService.js',
 				'./user_update/userUpdateController.js',
+		    	'./spec/userRegDataBuilder.js',
 				'./spec/unit/**/*.js' ],
 
 		// list of files / patterns to exclude

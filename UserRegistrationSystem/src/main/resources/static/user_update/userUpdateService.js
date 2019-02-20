@@ -29,5 +29,5 @@ app.factory('getUserAndEditFactory', ['$http', 'API_URL', '$q', function($http, 
 	return {
 		getUser: getUserDetails,
 		editUser: editUserDetails
-	}
+	};
 }])

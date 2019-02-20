@@ -1,17 +1,16 @@
 describe('Given a controller to list created users', function() {
 	 var scope;
-	 var q;
 	 var deferred;
 	 var location;
 	 var route;
 	 var listDeleteUserFactory;
-     var listedUsers = {data: [{id: 1}, {id: 2}]};
+    var listedUsers = userRegDataBuilder().build();
+    //{data: [{id: 1}, {id: 2}]}
 
 	beforeEach(function() {
 		module('userregistrationsystem');
 		inject(function($controller, _$rootScope_, _$q_, _$location_, _$route_, _listDeleteUserFactory_) {
 			scope = _$rootScope_.$new();
-			q = _$q_;
 			location = _$location_;
 			route = _$route_;
 			listDeleteUserFactory = _listDeleteUserFactory_;
@@ -36,7 +35,7 @@ describe('Given a controller to list created users', function() {
 		listDeleteUserFactory.listUsers();
 		expect(listDeleteUserFactory.listUsers).toHaveBeenCalled();
 
-		deferred.resolve(listedUsers);
+		deferred.resolve({data: [{listedUsers}]});
 
 	    // We have to call apply for this to work
 	    scope.$apply();
@@ -48,10 +47,10 @@ describe('Given a controller to list created users', function() {
 	});
 
 	it('when user is deleted, then the user is gone', function() {
-		scope.deleteUser(1);
+		scope.deleteUser(listedUsers.id);
 		expect(listDeleteUserFactory.deleteUser).toHaveBeenCalled();
 
-		deferred.resolve(listedUsers);
+		deferred.resolve({data: [{}]});
 		scope.$apply();
 
 	    expect(location.path).toHaveBeenCalledWith('/list-all-users');

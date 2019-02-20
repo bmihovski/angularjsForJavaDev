@@ -6,7 +6,7 @@ app.config(['$routeProvider', function($routeProvider) {
 		controller: 'ListDeleteUserController'
 	})
 	.when('/register-new-user', {
-		templateUrl: '/userregistration/userregistration.html',
+		templateUrl: '/user_registration/userregistration.html',
 		controller: 'RegisterUserController'
 	})
 	.when('/update-user/:id', {

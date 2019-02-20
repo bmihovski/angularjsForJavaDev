@@ -14,25 +14,15 @@ describe('Given a services for listing and deleting users', function() {
 		});
 	});
 	it('When api is called then list of users is returned', function() {
-		var user = [
-			{
-			id: 1,
-	        name: "Boyan",
-	        address: "Sofia, Mladost",
-	        email: "mag@gmail.com",
-	        errorMessage: null
-			}
-		];
+		var user = userRegDataBuilder().build();
 
-		httpBackend.when('GET', API_URL).respond(200, user);
+		httpBackend.when('GET', API_URL).respond(200, [user]);
 		httpBackend.expectGET(API_URL);
 		listDeleteUserFactory.listUsers().then(function(d) {
-		      expect(d.data).toEqual(user);
+		      expect(d.data).toEqual([user]);
 		  });
 
 		httpBackend.flush();
-		//expect(location.path).toBe('/home/');
-		//expect(scope.results[0]).toEqual(testProduct);
 
 	});
 
