@@ -1,5 +1,5 @@
 describe('Given a controller for update user', function() {
-	var scope, route, location, deferred, getUserAndEditFactory;
+	var scope, route, location, deferred, getUserAndEditFactory, $routeParams;
 	var user = {data: userRegDataBuilder().build()};
 	var userError = {data: userRegDataBuilder().withErrorMessage("ERROR").build()};
 	beforeEach(
@@ -19,7 +19,8 @@ describe('Given a controller for update user', function() {
 
 			$controller('UsersDetailsController', {
 				$scope: scope,
-				getUserAndEditFactory: getUserAndEditFactory
+				getUserAndEditFactory: getUserAndEditFactory,
+				$routeParams: {id: 1} 
 			});
 		});
 	});
@@ -37,7 +38,7 @@ describe('Given a controller for update user', function() {
 	});
 
 	it('When user is edited, then the information is send back to server', function() {
-		scope.submitUserForm();
+		scope.submitUserEditForm();
 
 		expect(getUserAndEditFactory.editUser).toHaveBeenCalled();
 
@@ -51,10 +52,11 @@ describe('Given a controller for update user', function() {
 	});
 
 	it('When user is edited but edit failed, then error message is send back from server', function() {
-		scope.submitUserForm();
+		scope.submitUserEditForm();
 		expect(getUserAndEditFactory.editUser).toHaveBeenCalled();
 		deferred.reject(userError);
 		scope.$apply();
+		expect(location.path).toBe(undefined);
 		expect(scope.errorMessage).not.toBe(undefined);
 		expect(scope.errorMessage).toBe('Error while updating User - Error Message: ' + userError.data.errorMessage);
 	});

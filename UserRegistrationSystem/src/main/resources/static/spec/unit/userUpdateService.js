@@ -1,12 +1,16 @@
 describe('Given user which will be edited', function() {
-	var httpBackend, getUserAndEditFactory, API_URL, errorMessage;
+	var route, httpBackend, getUserAndEditFactory, API_URL, errorMessage, location;
 	var user = userRegDataBuilder().build();
 	beforeEach(function() {
 		module('userregistrationsystem');
-		inject(function (_getUserAndEditFactory_, _API_URL_, _$httpBackend_) {
+		inject(function (_getUserAndEditFactory_, _API_URL_, _$httpBackend_, _$route_, _$location_) {
 			httpBackend = _$httpBackend_;
 			getUserAndEditFactory = _getUserAndEditFactory_;
 			API_URL = _API_URL_;
+			route = _$route_;
+			location = _$location_;
+			spyOn(route, 'reload');
+			spyOn(location, 'path');
 		});
 
 	});
@@ -30,15 +34,15 @@ describe('Given user which will be edited', function() {
 		httpBackend.flush();
 	});
 	it('When user details are wrong, then a message from backend is return', function() {
-		errorMessage = {data: userRegDataBuilder().withErrorMessage("ERROR").build()};
+		errorMessage = userRegDataBuilder().withErrorMessage("ERROR").build();
 		httpBackend.when('PUT', API_URL + user.id, user)
 		.respond(400, errorMessage);
 		httpBackend.expectPUT(API_URL + user.id, user);
 		getUserAndEditFactory.editUser(user).then(function(data) {
 			expect(data).toBe(undefined);
 		})
-		.catch(function(data) {
-			expect(data.errorMessage).toBe("ERROR");
+		.catch(function(d) {
+			expect(d.data).toEqual(errorMessage);
 		});
 		httpBackend.flush();
 	})

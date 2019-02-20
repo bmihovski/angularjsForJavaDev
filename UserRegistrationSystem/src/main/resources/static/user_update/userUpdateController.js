@@ -5,7 +5,7 @@ app.controller('UsersDetailsController', ['$scope', '$location', '$route', 'getU
 		.then(function(response) {
 			$scope.user = response.data;
 		});
-		$scope.submitUserForm = function() {
+		$scope.submitUserEditForm = function() {
 			getUserAndEditFactory.editUser($scope.user)
 			.then(function() {
 				$location.path('/list-all-users');
