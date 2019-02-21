@@ -1,7 +1,7 @@
 describe('Given a controller for update user', function() {
 	var scope, route, location, deferred, getUserAndEditFactory, $routeParams;
 	var user = {data: userRegDataBuilder().build()};
-	var userError = {data: userRegDataBuilder().withErrorMessage("ERROR").build()};
+	var userError = userRegDataBuilder().withErrorMessage("ERROR").build();
 	beforeEach(
 		function() {
 		module('userregistrationsystem');
@@ -19,8 +19,7 @@ describe('Given a controller for update user', function() {
 
 			$controller('UsersDetailsController', {
 				$scope: scope,
-				getUserAndEditFactory: getUserAndEditFactory,
-				$routeParams: {id: 1} 
+				getUserAndEditFactory: getUserAndEditFactory
 			});
 		});
 	});
@@ -33,7 +32,7 @@ describe('Given a controller for update user', function() {
 
 		scope.$apply();
 
-	    expect(scope.user).not.toBe(undefined);
+	    expect(scope.userUpdate).not.toBe(undefined);
 
 	});
 
