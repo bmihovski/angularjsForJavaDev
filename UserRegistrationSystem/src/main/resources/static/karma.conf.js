@@ -20,6 +20,7 @@ module.exports = function(config) {
 		    	'./node_modules/angular-resource/angular-resource.js',
 		    	'app.js',
 		    	'./components/userRegConst.js',
+		    	'./components/authInterceptor.js',
 				'./user_registration/userRegistrationService.js',
 				'./user_registration/userRegistrationController.js',
 				'./list_all_users/listDeleteUserService.js',
