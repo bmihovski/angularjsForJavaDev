@@ -1,5 +1,5 @@
-app.controller('ListDeleteUserController', ['$scope', '$http', '$location',
-	'$route', 'listDeleteUserFactory', function($scope, $http, $location, $route, listDeleteUserFactory) {
+app.controller('ListDeleteUserController', ['$scope', '$location',
+	'$route', 'listDeleteUserFactory', function($scope, $location, $route, listDeleteUserFactory) {
 		// call the service to retrieve users
 		listDeleteUserFactory.listUsers()
 		.then(function(response) {

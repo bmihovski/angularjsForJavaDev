@@ -1,7 +1,7 @@
 describe('Given a controller for update user', function() {
 	var scope, route, location, deferred, getUserAndEditFactory, $routeParams;
 	var user = {data: userRegDataBuilder().build()};
-	var userError = userRegDataBuilder().withErrorMessage("ERROR").build();
+	var userError = {data: userRegDataBuilder().withErrorMessage("ERROR").build()};
 	beforeEach(
 		function() {
 		module('userregistrationsystem');

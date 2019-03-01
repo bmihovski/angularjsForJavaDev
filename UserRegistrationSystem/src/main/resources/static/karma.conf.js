@@ -28,6 +28,11 @@ module.exports = function(config) {
 				'./user_update/userUpdateService.js',
 				'./user_update/userUpdateController.js',
 		    	'./spec/userRegDataBuilder.js',
+		    	'./home/homeController.js',
+		    	'./login/loginService.js',
+		    	'./login/loginController.js',
+		    	'./logout/logoutService.js',
+		    	'./logout/logoutController.js',
 				'./spec/unit/**/*.js' ],
 
 		// list of files / patterns to exclude
