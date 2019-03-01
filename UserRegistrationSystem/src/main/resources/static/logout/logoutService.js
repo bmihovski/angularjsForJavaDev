@@ -9,7 +9,7 @@ app.factory('logoutFactory', ['$http', '$q', function($http, $q) {
 			data: {}
 		})
 		.finally(function() {
-			deferred.finally();
+			deferred.resolve();
 		});
 
 		return deferred.promise;

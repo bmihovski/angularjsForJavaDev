@@ -1,9 +1,5 @@
 describe('Given a controller to list created users', function() {
-	 var scope;
-	 var deferred;
-	 var location;
-	 var route;
-	 var listDeleteUserFactory;
+	 var scope, deferred, location, route, listDeleteUserFactory;
     var listedUsers = userRegDataBuilder().build();
     //{data: [{id: 1}, {id: 2}]}
 

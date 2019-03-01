@@ -13,13 +13,13 @@ describe('Given logout service to logout user from the server', function() {
 
 			spyOn(location, 'path');
 
-		})
+		});
 
 	});
 
 	it('When user try to logout, Then user is logged out successfully', function() {
-		httpBackend('POST', 'logout', {}).respond(200, true);
-		httpBackendExpectPOST('logout');
+		httpBackend.when('POST', 'logout', {}).respond(200);
+		httpBackend.expectPOST('logout');
 
 		logoutFactory.logOut().finally(function(data) {
 			expect(data).toBe(undefined);
