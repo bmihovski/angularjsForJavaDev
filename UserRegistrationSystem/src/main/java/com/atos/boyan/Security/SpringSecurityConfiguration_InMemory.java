@@ -22,8 +22,8 @@ public class SpringSecurityConfiguration_InMemory extends WebSecurityConfigurerA
 	protected void configure(HttpSecurity http) throws Exception {
 		http.httpBasic().realmName("User Registration System").and().authorizeRequests()
 				.antMatchers("/login/*", "/home/*",
-						"/*", "/components/*", "/list_all_users/*",
-						"/logout/*", "/user_registration/*", "/user_update/*")
+						"/*", "/components/*.js", "/list_all_users/*.js",
+						"/logout/*.js", "/user_registration/*.js", "/user_update/*.js")
 				.permitAll().anyRequest().authenticated().and()
 				.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 	}
