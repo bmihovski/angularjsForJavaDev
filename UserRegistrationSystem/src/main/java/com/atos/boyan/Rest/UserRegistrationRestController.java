@@ -38,6 +38,7 @@ public class UserRegistrationRestController {
 
 	@GetMapping("/")
 	public ResponseEntity<List<UsersDTO>> listAllUsers() {
+		LOGGER.info("Fetching all users");
 		List<UsersDTO> users = userJpaRepository.findAll();
 		if (users.isEmpty()) {
 			return new ResponseEntity<List<UsersDTO>>(HttpStatus.NO_CONTENT);
@@ -50,7 +51,7 @@ public class UserRegistrationRestController {
 		if (userJpaRepository.findByName(user.getName()) != null) {
 			return new ResponseEntity<UsersDTO>(
 					new CustomErrorType("Unable to create user. User with name "
-							+ user + " already exist." ), HttpStatus.FOUND);
+							+ user.getName() + " already exist." ), HttpStatus.CONFLICT);
 		};
 		userJpaRepository.save(user);
 		return new ResponseEntity<UsersDTO>(user, HttpStatus.CREATED);
@@ -58,6 +59,7 @@ public class UserRegistrationRestController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<UsersDTO> getUserById(@PathVariable("id") final Long id) {
+		LOGGER.info("Fetching User with id {}", id);
 		UsersDTO user = userJpaRepository.findById(id);
 		if (user == null) {
 			return new ResponseEntity<UsersDTO>(
@@ -70,6 +72,7 @@ public class UserRegistrationRestController {
 	@PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UsersDTO> updateUser(@PathVariable("id") final Long id,
 			@RequestBody UsersDTO user) {
+		LOGGER.info("Updating User with id {}", id);
 		// fetch based on id and set it to currentUser object of type UsersDTO
 		UsersDTO currentUser = userJpaRepository.findById(id);
 		// check for wrong user id
@@ -94,6 +97,7 @@ public class UserRegistrationRestController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<UsersDTO> deleteUser(@PathVariable("id") final Long id) {
+		LOGGER.info("Deleting User with id {}", id);
 		UsersDTO user = userJpaRepository.findById(id);
 		if (user == null) {
 			return new ResponseEntity<UsersDTO>(
