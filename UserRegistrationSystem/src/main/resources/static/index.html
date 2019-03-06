@@ -3,54 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <title>Full Stack Development</title>
-<link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
-	<div class="page-header text-center">
-		<h2>User Registration System</h2>
+<div class="page-header text-center">
+	<h2>User Registration System</h2>
+</div>
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<a href="#!/"
+		 	class="btn btn-info navbar-btn"
+		 	role="button">
+				Home
+		</a>
+		<a href="#!/register-new-user"
+			class="btn btn-info navbar-btn"
+			role="button"
+		>Register New User</a>
+		<a href="#!/list-all-users"
+			class="btn btn-info"
+			role="button">
+				List All Users
+		</a>
 	</div>
-	<nav class="navbar navbar-default">
-		<div class="container-fluid">
-			<div class="container-fluid" ng-show="!authenticated">
-				<a href="#!/login" class="btn btn-info navbar-btn" role="button">Login</a>
-				<p>Login to go to Home Page</p>
-			</div>
-			<div ng-show="authenticated">
-				<a href="#!/" class="btn btn-info navbar-btn" role="button">
-					Home </a> <a href="#!/register-new-user"
-					class="btn btn-info navbar-btn" role="button">Register New
-					User</a> <a href="#!/list-all-users" class="btn btn-info" role="button">
-					List All Users </a> <a href="#!/logout"
-					class="btn btn-danger navbar-btn pull-right" role="button">Logout</a>
-			</div>
-		</div>
-	</nav>
-	<div ng-view></div>
-	<script type="text/javascript"
-		src="/webjars/angularjs/1.7.6/angular.js"></script>
-	<script type="text/javascript"
-		src="/webjars/angularjs/1.7.6/angular-resource.js"></script>
-	<script type="text/javascript"
-		src="/webjars/angularjs/1.7.6/angular-route.js"></script>
-	<script type="text/javascript" src="/js/app.js"></script>
-	<script type="text/javascript"
-		src="/js/userRegistrationController.js"></script>
-	<script type="text/javascript" src="/js/userRegConst.js"></script>
-	<script type="text/javascript"
-		src="/js/userRegistrationService.js"></script>
-	<script type="text/javascript"
-		src="/js/listDeleteUserController.js"></script>
-	<script type="text/javascript"
-		src="/js/listDeleteUserService.js"></script>
-	<script type="text/javascript"
-		src="/js/userUpdateController.js"></script>
-	<script type="text/javascript" src="/js/userUpdateService.js"></script>
-	<script type="text/javascript" src="/js/loginController.js"></script>
-	<script type="text/javascript" src="/js/loginService.js"></script>
-	<script type="text/javascript" src="/js/homeController.js"></script>
-	<script type="text/javascript" src="/js/logoutService.js"></script>
-	<script type="text/javascript" src="/js/logoutController.js"></script>
-	<link rel="stylesheet"
-		href="/webjars/bootstrap/4.2.1/css/bootstrap.css">
+</nav>
+<div ng-view></div>
+<script type="text/javascript" src="/webjars/angularjs/1.7.6/angular.js"></script>
+<script type="text/javascript" src="/webjars/angularjs/1.7.6/angular-resource.js"></script>
+<script type="text/javascript" src="/webjars/angularjs/1.7.6/angular-route.js"></script>
+<script type="text/javascript" src="/js/app.js"></script>
+<script type="text/javascript" src="/js/controller.js"></script>
+<link rel="stylesheet" href="/webjars/bootstrap/4.2.1/css/bootstrap.css">
 </body>
 </html>
