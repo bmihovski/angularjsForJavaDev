@@ -10,17 +10,17 @@ import org.springframework.web.client.RestTemplate;
 public class UserRegistrationClientBasicAuth {
 
 
-	private static final String securityUserName = "user";
+	private static final String securityUserName = "admin";
 	private static final String securityUserPassword = "password";
 
 	private static final String USER_REGISTRATION_BASE_URL =
-			"http://localhost:8080/user/";
+			"http://localhost:8080/api/user/";
 
 	private static RestTemplate restTemplate = new RestTemplate();
 
 	public static void main(String[] args) {
 		UserRegistrationClientBasicAuth restClientBasicAuth = new UserRegistrationClientBasicAuth();
-		restClientBasicAuth.deleteUserById(2L);
+		restClientBasicAuth.deleteUserById(1L);
 
 	}
 
