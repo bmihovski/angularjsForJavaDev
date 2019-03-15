@@ -67,4 +67,11 @@ public class UsersDTO {
 		this.name = name;
 	}
 
+	public String getErrorMessage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
 }
