@@ -20,6 +20,7 @@ describe('Given home page controller which redirecting the user in case authoriz
 	it('When the user is authorizated, then is redirected to / route', function() {
 		rootScope.authenticated = true
 		var controller = createController();
+		console.log(rootScope.authenticated);
 		expect(location.path).toHaveBeenCalledWith('/');
 		expect(scope.loginError).toEqual(false);
 	});
