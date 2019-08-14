@@ -48,5 +48,8 @@ public class UserDTO {
 		this.email = email;
 	}
 
+	public String getErrorMessage() {
+		return null;
+	}
 	
 }
