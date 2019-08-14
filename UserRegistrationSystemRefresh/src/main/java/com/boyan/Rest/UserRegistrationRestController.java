@@ -3,6 +3,8 @@ package com.boyan.Rest;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +48,7 @@ public class UserRegistrationRestController {
 	}
 
 	@PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<UserDTO> createUser(@RequestBody final UserDTO user) {
+	public ResponseEntity<UserDTO> createUser(@Valid @RequestBody final UserDTO user) {
 		if (repository.findByName(user.getName()) != null) {
 			return new ResponseEntity<UserDTO>(
 					new CustomErrorType("User with the same " + user.getName() + " already exist"),

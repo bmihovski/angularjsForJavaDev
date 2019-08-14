@@ -5,6 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "Users")
@@ -15,12 +19,19 @@ public class UserDTO {
 	@Column(name = "USER_ID")
 	private Long id;
 	
+	@NotEmpty(message = "error.name.empty")
+	@Length(max = 50, message = "error.name.length")
 	@Column(name = "NAME")
 	private String name;
 	
+	@NotEmpty(message = "error.address.empty")
+	@Length(max = 150, message = "error.address.length")
 	@Column(name = "ADDRESS")
 	private String address;
 	
+	@NotEmpty(message = "error.email.empty")
+	@Email(message = "error.email.email")
+	@Length(max = 80, message = "error.email.length")
 	@Column(name = "EMAIL")
 	private String email;
 
