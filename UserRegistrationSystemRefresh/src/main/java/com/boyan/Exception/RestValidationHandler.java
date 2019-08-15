@@ -20,64 +20,57 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * This class is applied to each controller.
+ * 
+ * @author Ravi Kant Soni
+ *
+ */
 @ControllerAdvice
 public class RestValidationHandler {
-	
+
 	private MessageSource messageSource;
-	
+
 	@Autowired
 	public RestValidationHandler(MessageSource messageSource) {
 		this.messageSource = messageSource;
 	}
 
-	//method to handle validation error
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ResponseEntity<FieldValidationErrorDetails> handleValidationError(
-			MethodArgumentNotValidException mNonNotValidException,
-			HttpServletRequest request) {
-		FieldValidationErrorDetails fErrorDetails = 
-				new FieldValidationErrorDetails();
+			MethodArgumentNotValidException mNotValidException, HttpServletRequest request) {
+		FieldValidationErrorDetails fErrorDetails = new FieldValidationErrorDetails();
 		fErrorDetails.setError_timeStamp(new Date().getTime());
-		fErrorDetails.setError_detail("Input Field Validation Failed");
 		fErrorDetails.setError_status(HttpStatus.BAD_REQUEST.value());
-		fErrorDetails.setError_path(request.getRequestURI());
-		fErrorDetails.setError_developer_message(mNonNotValidException
-				.getClass().getName());
 		fErrorDetails.setError_title("Field Validation Error");
-		BindingResult result = mNonNotValidException.getBindingResult();
+		fErrorDetails.setError_detail("Inut Field Validation Failed");
+		fErrorDetails.setError_developer_message(mNotValidException.getClass().getName());
+		fErrorDetails.setError_path(request.getRequestURI());
+
+		BindingResult result = mNotValidException.getBindingResult();
 		List<FieldError> fieldErrors = result.getFieldErrors();
-		
-		for (FieldError error: fieldErrors) {
+		for (FieldError error : fieldErrors) {
 			FieldValidationError fError = processFieldError(error);
-			List<FieldValidationError> fValidationErrorsList =
-					fErrorDetails.getErrors().get(error.getField());
+			List<FieldValidationError> fValidationErrorsList = fErrorDetails.getErrors().get(error.getField());
 			if (fValidationErrorsList == null) {
-				fValidationErrorsList =
-						new ArrayList<FieldValidationError>();
-			};
+				fValidationErrorsList = new ArrayList<FieldValidationError>();
+			}
 			fValidationErrorsList.add(fError);
-			fErrorDetails.getErrors().put(
-					error.getField(), fValidationErrorsList);
-		};
-		return new ResponseEntity<FieldValidationErrorDetails>(
-					fErrorDetails, HttpStatus.BAD_REQUEST
-				);
+			fErrorDetails.getErrors().put(error.getField(), fValidationErrorsList);
+		}
+		return new ResponseEntity<FieldValidationErrorDetails>(fErrorDetails, HttpStatus.BAD_REQUEST);
 	}
 
-	// method to process field error
 	private FieldValidationError processFieldError(final FieldError error) {
 		FieldValidationError fieldValidationError = new FieldValidationError();
 		if (error != null) {
 			Locale currentLocale = LocaleContextHolder.getLocale();
-			String msg = messageSource.getMessage(error.getDefaultMessage(), null,
-					currentLocale);
-			
+			String msg = messageSource.getMessage(error.getDefaultMessage(), null, currentLocale);
 			fieldValidationError.setField(error.getField());
 			fieldValidationError.setType(MessageType.ERROR);
 			fieldValidationError.setMessage(msg);
 		}
 		return fieldValidationError;
 	}
-	
 }

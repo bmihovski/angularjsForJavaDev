@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.boyan.Exception.CustomErrorType;
-import com.boyan.dto.UserDTO;
+import com.boyan.dto.UsersDTO;
 import com.boyan.repository.UserJpaRepository;
 
 @RestController
@@ -38,47 +38,47 @@ public class UserRegistrationRestController {
 	}
 
 	@GetMapping(value = "/")
-	public ResponseEntity<List<UserDTO>> listUsers() {
-		List<UserDTO> users = repository.findAll();
+	public ResponseEntity<List<UsersDTO>> listUsers() {
+		List<UsersDTO> users = repository.findAll();
 		if (users.isEmpty()) {
-			return new ResponseEntity<List<UserDTO>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<UsersDTO>>(HttpStatus.NO_CONTENT);
 		}
 
-		return new ResponseEntity<List<UserDTO>>(users, HttpStatus.OK);
+		return new ResponseEntity<List<UsersDTO>>(users, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<UserDTO> createUser(@Valid @RequestBody final UserDTO user) {
+	public ResponseEntity<UsersDTO> createUser(@Valid @RequestBody final UsersDTO user) {
 		if (repository.findByName(user.getName()) != null) {
-			return new ResponseEntity<UserDTO>(
+			return new ResponseEntity<UsersDTO>(
 					new CustomErrorType("User with the same " + user.getName() + " already exist"),
 					HttpStatus.CONFLICT);
 		}
 
 		repository.save(user);
-		return new ResponseEntity<UserDTO>(repository.findByName(user.getName()), HttpStatus.CREATED);
+		return new ResponseEntity<UsersDTO>(user, HttpStatus.CREATED);
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<UserDTO> getUserById(@PathVariable("id") final Long id) {
-		Optional<UserDTO> user = repository.findById(id);
+	public ResponseEntity<UsersDTO> getUserById(@PathVariable("id") final Long id) {
+		Optional<UsersDTO> user = repository.findById(id);
 
 		if (user.isEmpty()) {
-			return new ResponseEntity<UserDTO>(new CustomErrorType("User with id " + id + " not found"),
+			return new ResponseEntity<UsersDTO>(new CustomErrorType("User with id " + id + " not found"),
 					HttpStatus.NOT_FOUND);
 		}
 
-		return new ResponseEntity<UserDTO>(user.get(), HttpStatus.OK);
+		return new ResponseEntity<UsersDTO>(user.get(), HttpStatus.OK);
 
 	}
 
 	@PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<UserDTO> updateUser(@PathVariable("id") final Long id, @RequestBody UserDTO user) {
+	public ResponseEntity<UsersDTO> updateUser(@PathVariable("id") final Long id, @RequestBody UsersDTO user) {
 		// fetch user based on id and set it to currentUser object of type UserDTO
-		UserDTO currentUser = repository.findById(id).orElse(null);
+		UsersDTO currentUser = repository.findById(id).orElse(null);
 
 		if (currentUser == null) {
-			return new ResponseEntity<UserDTO>(
+			return new ResponseEntity<UsersDTO>(
 					new CustomErrorType("Unable to update." + "User with id " + id + " not found"),
 					HttpStatus.NOT_FOUND);
 		}
@@ -91,21 +91,21 @@ public class UserRegistrationRestController {
 		// save current user object
 		repository.saveAndFlush(currentUser);
 
-		return new ResponseEntity<UserDTO>(repository.findById(id).get(), HttpStatus.OK);
+		return new ResponseEntity<UsersDTO>(repository.findById(id).get(), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<UserDTO> deleteUser(@PathVariable("id") final Long id) {
-		Optional<UserDTO> userForDeletion = repository.findById(id);
+	public ResponseEntity<UsersDTO> deleteUser(@PathVariable("id") final Long id) {
+		Optional<UsersDTO> userForDeletion = repository.findById(id);
 		
 		if (userForDeletion.isEmpty()) {
-			return new ResponseEntity<UserDTO>(new CustomErrorType("Unable to delete. "
+			return new ResponseEntity<UsersDTO>(new CustomErrorType("Unable to delete. "
 					+ "User with id " + id + " not found."), HttpStatus.NOT_FOUND);
 		}
 		
 		repository.deleteById(id);
 
-		return new ResponseEntity<UserDTO>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<UsersDTO>(HttpStatus.NO_CONTENT);
 	}
 
 }

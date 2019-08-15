@@ -1,15 +1,14 @@
 package com.boyan.Exception;
 
-import com.boyan.dto.UserDTO;
+import com.boyan.dto.UsersDTO;
 
-public class CustomErrorType extends UserDTO {
+public class CustomErrorType extends UsersDTO {
 	private String errorMessage;
 	
 	public CustomErrorType(final String errorMessage) {
 		this.errorMessage = errorMessage;
 	}
 
-	@Override
 	public String getErrorMessage() {
 		return errorMessage;
 	}

@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "Users")
-public class UserDTO {
+public class UsersDTO {
 	
 	@Id
 	@GeneratedValue
@@ -34,6 +34,10 @@ public class UserDTO {
 	@Length(max = 80, message = "error.email.length")
 	@Column(name = "EMAIL")
 	private String email;
+	
+	public Long getId() {
+		return id;
+	}
 
 	public String getName() {
 		return name;
@@ -59,8 +63,4 @@ public class UserDTO {
 		this.email = email;
 	}
 
-	public String getErrorMessage() {
-		return null;
-	}
-	
 }
