@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * This class is applied to each controller.
  * 
- * @author Ravi Kant Soni
  *
  */
 @ControllerAdvice
@@ -44,7 +43,7 @@ public class RestValidationHandler {
 		fErrorDetails.setError_timeStamp(new Date().getTime());
 		fErrorDetails.setError_status(HttpStatus.BAD_REQUEST.value());
 		fErrorDetails.setError_title("Field Validation Error");
-		fErrorDetails.setError_detail("Inut Field Validation Failed");
+		fErrorDetails.setError_detail("Input Field Validation Failed");
 		fErrorDetails.setError_developer_message(mNotValidException.getClass().getName());
 		fErrorDetails.setError_path(request.getRequestURI());
 
