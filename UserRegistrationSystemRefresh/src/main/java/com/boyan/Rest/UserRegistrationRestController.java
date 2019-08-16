@@ -51,7 +51,7 @@ public class UserRegistrationRestController {
 	public ResponseEntity<UsersDTO> createUser(@Valid @RequestBody final UsersDTO user) {
 		if (repository.findByName(user.getName()) != null) {
 			return new ResponseEntity<UsersDTO>(
-					new CustomErrorType("User with the same " + user.getName() + " already exist"),
+					new CustomErrorType("User with the same name " + user.getName() + " already exist"),
 					HttpStatus.CONFLICT);
 		}
 

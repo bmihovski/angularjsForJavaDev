@@ -11,7 +11,7 @@ public class UserRegistrationConfiguration {
 	public ReloadableResourceBundleMessageSource messageSource() {
 		ReloadableResourceBundleMessageSource messageBundle = 
 				new ReloadableResourceBundleMessageSource();
-		messageBundle.setBasename("classpath:messages/messages");
+		messageBundle.setBasename("classpath:messages");
 		messageBundle.setDefaultEncoding("UTF-8");
 		return messageBundle;
 	}
