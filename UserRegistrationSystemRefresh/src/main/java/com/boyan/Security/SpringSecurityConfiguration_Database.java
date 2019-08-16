@@ -18,23 +18,18 @@ import com.boyan.service.UserInfoDetailsService;
 public class SpringSecurityConfiguration_Database extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserInfoDetailsService userInfoDetailsService;
-	
+
 	@Override
-	protected void configure(
-			AuthenticationManagerBuilder authenticationManagerBuilder)
-			throws Exception {
-		authenticationManagerBuilder.userDetailsService(userInfoDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+	protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+		authenticationManagerBuilder.userDetailsService(userInfoDetailsService)
+				.passwordEncoder(new BCryptPasswordEncoder());
 	}
 
-	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-				.authorizeRequests().antMatchers("/api/user/**").authenticated()
-				.and().authorizeRequests().antMatchers("/h2-console/**")
-				.authenticated().and().httpBasic()
-				.realmName("User Registration System").and().csrf().disable();
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+				.antMatchers("/api/user/**").authenticated().and().authorizeRequests().antMatchers("/h2-console/**")
+				.authenticated().and().httpBasic().realmName("User Registration System").and().csrf().disable();
 	}
 }
