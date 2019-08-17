@@ -12,12 +12,20 @@ app.config(['$routeProvider', function ($routeProvider) {
 	}).when('/update-user/:id', {
 		templateUrl: '/template/userupdate.html',
 		controller: 'UsersDetailsController'
-	}).otherwise({
+	}).when('/', {
 		templateUrl: '/template/home.html',
-		redirectTo: '/home'
-	})
+		controller: 'HomeController'
+	}).when('/login', {
+		templateUrl: '/login/login.html',
+		controller: 'LoginController'
+	}).when('/logout', {
+		templateUrl: '/login/login.html',
+		controller: 'LogoutController'
+	}).otherwise({
+		redirectTo: '/login'
+	});
 }]);
 
 app.config(['$httpProvider', function($httpProvider) {
-	  $httpProvider.interceptors.push('AuthInterceptor');
+	$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 	}]);
