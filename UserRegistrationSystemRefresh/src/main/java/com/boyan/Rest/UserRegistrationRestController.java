@@ -30,13 +30,9 @@ import com.boyan.repository.UserJpaRepository;
 public class UserRegistrationRestController {
 
 	public static final Logger logger = LoggerFactory.getLogger(UserRegistrationRestController.class);
-
-	private UserJpaRepository repository;
-
+	
 	@Autowired
-	public UserRegistrationRestController(UserJpaRepository repository) {
-		this.repository = repository;
-	}
+	private UserJpaRepository repository;
 
 	@GetMapping(value = "/")
 	public ResponseEntity<List<UsersDTO>> listUsers() {
