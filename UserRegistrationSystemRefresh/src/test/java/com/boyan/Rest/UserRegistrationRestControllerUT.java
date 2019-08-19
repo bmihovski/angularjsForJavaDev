@@ -25,7 +25,7 @@ import com.boyan.repository.UserJpaRepository;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = UserRegistrationSystemApplicationRefresh.class,
 webEnvironment = WebEnvironment.RANDOM_PORT)
-public class UserRegistrationRestControllerTest {
+public class UserRegistrationRestControllerUT {
 	
 	@Spy
 	private UserRegistrationRestController userRegistrationRestController;
@@ -35,6 +35,7 @@ public class UserRegistrationRestControllerTest {
 	
 	@Before
 	public void setUp() {
+		// the name of the field is the same like the repo field used in the controller
 		userRegistrationRestController = new UserRegistrationRestController();
 		ReflectionTestUtils.setField(userRegistrationRestController,
 				"repository", userJpaRepository);
