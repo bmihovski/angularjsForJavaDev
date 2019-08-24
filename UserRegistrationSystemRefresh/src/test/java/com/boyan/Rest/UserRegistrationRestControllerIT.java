@@ -2,6 +2,7 @@ package com.boyan.Rest;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -15,6 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -30,6 +32,7 @@ import com.boyan.repository.UserJpaRepository;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
+@AutoConfigureRestDocs
 public class UserRegistrationRestControllerIT {
 
 	@Autowired
@@ -63,6 +66,7 @@ public class UserRegistrationRestControllerIT {
 			.andExpect(jsonPath("$.name", is("Icho")))
 			.andExpect(jsonPath("$.address", is("opa str")))
 			.andExpect(jsonPath("$.email", is("test@test.com")))
+			.andDo(document("user"))
 			.andDo(print());
 	}
 

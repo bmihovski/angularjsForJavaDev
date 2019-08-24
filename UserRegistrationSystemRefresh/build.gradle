@@ -1,9 +1,25 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+ 
+    dependencies {
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.9.2'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.1.7.RELEASE'
+    }
+}
+ 
+
 plugins {
 	id 'org.springframework.boot' version '2.1.7.RELEASE'
 	id 'java'
 }
 
+// Plugin so we can render AsciiDoc documents.
+apply plugin: 'org.asciidoctor.gradle.asciidoctor'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.asciidoctor.convert'
+
 
 group = 'com.boyan'
 version = '0.0.1-SNAPSHOT'
@@ -20,6 +36,22 @@ repositories {
 	mavenCentral()
 }
 
+ext { 
+	snippetsDir = file('build/generated-snippets')
+}
+
+test { 
+	outputs.dir snippetsDir
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+    outputDir 'build/docs'
+    sourceDir 'src/doc/asciidoc'
+    attributes 'snippets': snippetsDir
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -28,6 +60,8 @@ dependencies {
 	runtimeOnly 'org.webjars:angularjs:1.7.7'
 	runtimeOnly 'org.webjars:bootstrap:4.3.1'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.3.RELEASE' 
+	testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc:2.0.3.RELEASE'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 }
