@@ -1,11 +1,33 @@
-= Getting Started With Spring REST Docs
+= User Registration API
+:toc: left
 
-This is an example output for a service running at http://localhost:8080:
+== Introduction
+
+This Registration API is intended to make it easy for you to understand how to use Spring REST Docs to produce high-quality documentation for your RESTful services.
+
+== Resources
+
+=== Read Product
+
+.curl request
+include::{snippets}/UserRegistrationRestControllerIT/shouldReturnSuccessMessage/curl-request.adoc[]
 
 .request
-include::{snippets}/user/http-request.adoc[]
+include::{snippets}/UserRegistrationRestControllerIT/shouldReturnSuccessMessage/http-request.adoc[]
 
 .response
-include::{snippets}/user/http-response.adoc[]
+include::{snippets}/UserRegistrationRestControllerIT/shouldReturnSuccessMessage/http-response.adoc[]
 
-As you can see the format is very simple, and in fact you always get the same message.
+.httpie request
+include::{snippets}/UserRegistrationRestControllerIT/shouldReturnSuccessMessage/httpie-request.adoc[]
+
+.response body
+include::{snippets}/UserRegistrationRestControllerIT/shouldReturnSuccessMessage/response-body.adoc[]
+
+.response fields
+include::{snippets}/UserRegistrationRestControllerIT/shouldReturnSuccessMessage/response-fields.adoc[]
+
+
+== Contributions
+
+This Registration API is intended to make it easy for you to understand how to use Spring REST Docs to produce high-quality documentation for your RESTful services.
