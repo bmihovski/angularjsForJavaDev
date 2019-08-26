@@ -6,6 +6,7 @@ buildscript {
     dependencies {
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.9.2'
         classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.1.7.RELEASE'
+        classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.15'
     }
 }
  
@@ -13,12 +14,12 @@ buildscript {
 plugins {
 	id 'org.springframework.boot' version '2.1.7.RELEASE'
 	id 'java'
+	id 'org.asciidoctor.convert' version '1.5.8.1'
 }
 
 // Plugin so we can render AsciiDoc documents.
 apply plugin: 'org.asciidoctor.gradle.asciidoctor'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'org.asciidoctor.convert'
 
 
 group = 'com.boyan'
@@ -46,6 +47,7 @@ test {
 }
 
 asciidoctor {
+    backends 'pdf'
     inputs.dir snippetsDir
     dependsOn test
     outputDir 'build/docs'
