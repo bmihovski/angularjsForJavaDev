@@ -67,10 +67,10 @@ angular-route@^1.7.7:
   resolved "https://registry.yarnpkg.com/angular-route/-/angular-route-1.7.7.tgz#0573c8efa87e735bcd4f64f6551a176faca3b6d1"
   integrity sha512-nshsCti751h8GfvYQ2nlTbQnaY/q5zvxLctj78sS5SjB8iRDqNbT1NVNz8B/nDQUudjc7etE7xYaTdM8idzq6g==
 
-angular@^1.7.7:
-  version "1.7.7"
-  resolved "https://registry.yarnpkg.com/angular/-/angular-1.7.7.tgz#26bd87693deadcbd5944610a7a0463fc79a18803"
-  integrity sha512-MH3JEGd8y/EkNCKJ8EV6Ch0j9X0rZTta/QVIDpBWaIdfh85/e5KO8+ZKgvWIb02MQuiS20pDFmMFlv4ZaLcLWg==
+angular@^1.7.9:
+  version "1.7.9"
+  resolved "https://registry.yarnpkg.com/angular/-/angular-1.7.9.tgz#e52616e8701c17724c3c238cfe4f9446fd570bc4"
+  integrity sha512-5se7ZpcOtu0MBFlzGv5dsM1quQDoDeUTwZrWjGtTNA7O88cD8TEk5IEKCTDa3uECV9XnvKREVUr7du1ACiWGFQ==
 
 ansi-regex@^2.0.0:
   version "2.1.1"
